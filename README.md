@@ -2,6 +2,8 @@
 
 # 🧭 PaperPilot
 
+**Done by: Chitira B &nbsp;·&nbsp; Mythili Y**
+
 ### An AI research co-pilot that **finds, reads and cross-checks scientific papers** and never invents a quote.
 
 Built for **medical instrumentation and health research**: wearables, biosignals, imaging, rehabilitation engineering and diagnostics.
