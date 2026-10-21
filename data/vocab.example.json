@@ -1,0 +1,16 @@
+{
+  "_help": "To teach PaperPilot new words, copy this file to data/vocab.json (it is loaded automatically). Add new labels or add keywords to existing labels. Keywords are lower case.",
+  "population": {
+    "spinal_cord_injury": ["spinal cord injury", "sci patients"],
+    "stroke": ["cerebrovascular accident"]
+  },
+  "method": {
+    "imu_sensor": ["inertial measurement unit", "imu sensor"]
+  },
+  "outcome": {
+    "tremor_severity": ["tremor severity", "tremor amplitude"]
+  },
+  "intervention": {
+    "mirror_therapy": ["mirror therapy", "mirror visual feedback"]
+  }
+}

@@ -1,0 +1,22 @@
+# Environments
+venv/
+.venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# App runtime data (personal / regenerated)
+.cache/
+data/feedback.json
+data/library.json
+data/activity.json
+data/vocab.json
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

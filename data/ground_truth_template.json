@@ -1,0 +1,11 @@
+{
+  "_help": "Copy this file to data/papers/ground_truth.json and fill it in by hand. Delete this _help line if you like. Values must use the shared vocabulary (modules/vocab.py).",
+  "claims": [
+    {"paper_id": "P1", "population": "stroke", "method": "continuous_sEMG",
+     "outcome": "hand_function", "direction": "positive"}
+  ],
+  "findings": [
+    {"type": "contradiction", "paper_ids": ["P1", "P2", "P3", "P4", "P5"]},
+    {"type": "gap", "population": "parkinsons", "method": "continuous_sEMG"}
+  ]
+}

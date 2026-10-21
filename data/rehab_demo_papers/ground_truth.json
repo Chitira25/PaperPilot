@@ -1,0 +1,118 @@
+{
+  "note": "Hand-written answer key for the SYNTHETIC rehab demo papers.",
+  "claims": [
+    {
+      "paper_id": "P1",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "hand_function",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P1",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "muscle_activation",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P1",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "grip_strength",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P2",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "hand_function",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P2",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "muscle_activation",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P2",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "grip_strength",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P3",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "hand_function",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P3",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "muscle_activation",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P3",
+      "population": "stroke",
+      "method": "continuous_sEMG",
+      "outcome": "grip_strength",
+      "direction": "positive"
+    },
+    {
+      "paper_id": "P4",
+      "population": "parkinsons",
+      "method": "single_point_sensor",
+      "outcome": "hand_function",
+      "direction": "none"
+    },
+    {
+      "paper_id": "P4",
+      "population": "parkinsons",
+      "method": "single_point_sensor",
+      "outcome": "grip_strength",
+      "direction": "none"
+    },
+    {
+      "paper_id": "P5",
+      "population": "parkinsons",
+      "method": "single_point_sensor",
+      "outcome": "hand_function",
+      "direction": "none"
+    },
+    {
+      "paper_id": "P5",
+      "population": "parkinsons",
+      "method": "single_point_sensor",
+      "outcome": "grip_strength",
+      "direction": "none"
+    }
+  ],
+  "findings": [
+    {
+      "type": "contradiction",
+      "paper_ids": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5"
+      ]
+    },
+    {
+      "type": "gap",
+      "population": "parkinsons",
+      "method": "continuous_sEMG"
+    },
+    {
+      "type": "gap",
+      "population": "stroke",
+      "method": "single_point_sensor"
+    }
+  ]
+}
