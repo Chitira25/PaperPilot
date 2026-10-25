@@ -9,18 +9,34 @@
 Built for **medical instrumentation and health research**: wearables, biosignals, imaging, rehabilitation engineering and diagnostics.
 
 <p>
+  <a href="https://paperpilot-a4dykv4osjzyhguqsmencn.streamlit.app/"><img alt="Live demo" src="https://img.shields.io/badge/%F0%9F%9A%80%20live%20demo-open%20the%20app-FF4B4B?logo=streamlit&logoColor=white"></a>
   <img alt="Python" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white">
   <img alt="Streamlit" src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-86%20passing-059669">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-92%20passing-059669">
   <img alt="Offline mode" src="https://img.shields.io/badge/offline%20mode-no%20API%20key-2563EB">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-0F172A">
 </p>
 
-[Quick start](#-quick-start) · [Features](#-features) · [How it works](#-how-it-works) · [Trust model](#-trust-model) · [Project structure](#-project-structure) · [Roadmap](#-roadmap)
+### 👉 [**Try PaperPilot live**](https://paperpilot-a4dykv4osjzyhguqsmencn.streamlit.app/) 👈
+
+[Live demo](#-live-demo) · [Quick start](#-quick-start) · [Features](#-features) · [How it works](#-how-it-works) · [Trust model](#-trust-model) · [Deployment](#-deployment) · [Project structure](#-project-structure) · [Roadmap](#-roadmap)
 
 </div>
 
 ---
+
+## 🌐 Live demo
+
+**https://paperpilot-a4dykv4osjzyhguqsmencn.streamlit.app/**
+
+No installation and no API key needed. In the sidebar click **🧪 Load rehab demo (synthetic)**, then type `analyse my papers` in the **Assistant**, or ask it to `find recent open-access papers on wearable ECG`.
+
+Good to know about the public demo:
+
+* It runs in **public mode**: your library and review decisions are **private to your browser session** and are deleted after 24 hours of inactivity. Visitors never see each other's papers.
+* Please **do not upload confidential papers** to a public site.
+* The free host **goes to sleep** when nobody uses it. If you see a "wake up" button, press it and wait a moment.
+* For research use only. Not medical advice.
 
 ## ✨ Why PaperPilot?
 
@@ -48,6 +64,7 @@ PaperPilot takes the opposite approach:
 | 🕸️ **Knowledge graph** | Interactive graph of papers, interventions, outcomes and relations |
 | 📈 **Quality & export** | Claim coverage, contradiction precision, gap recall and reviewer agreement against your own answer key; Markdown / JSON export |
 | 📊 **Analytics panel** | Activity, topics in your library and insight quality. Real numbers only; empty states show `n/a` |
+| 🔒 **Public mode** | One setting (`PAPERPILOT_PUBLIC=1`) gives every visitor a private temporary library, so the app can be hosted publicly |
 
 ## ⚡ Quick start
 
@@ -69,6 +86,8 @@ python -m streamlit run app.py
 
 Open **http://localhost:8501**. Streamlit may ask for an email on first run; just press Enter.
 
+**Windows shortcut:** double-click `Run_PaperPilot.bat`. The first run creates the environment and installs the packages.
+
 ### Try it in 60 seconds (no API key, no downloads)
 
 1. In the sidebar, click **🧪 Load rehab demo (synthetic)**: 5 fictional stroke / Parkinson's EMG grip-rehab papers with an answer key.
@@ -78,7 +97,7 @@ Open **http://localhost:8501**. Streamlit may ask for an email on first run; jus
 
 ### Use your own papers
 
-Drop PDFs in `data/papers/`, named so the part before the first underscore is the paper id (`P1_Author_Title.pdf`), then click **Load my papers**. Optionally copy `data/ground_truth_template.json` to `data/papers/ground_truth.json` and fill it in to unlock the **Quality** metrics. PaperPilot only *reads* your PDFs; it never modifies or deletes them.
+Drop PDFs in `data/papers/`, named so the part before the first underscore is the paper id (`P1_Author_Title.pdf`), then click **Import PDFs from data/papers/**. Optionally copy `data/ground_truth_template.json` to `data/papers/ground_truth.json` and fill it in to unlock the **Quality** metrics. PaperPilot only *reads* your PDFs; it never modifies or deletes them. (On the public demo, upload PDFs with the sidebar uploader instead.)
 
 ### Optional: Live LLM mode
 
@@ -124,6 +143,20 @@ flowchart LR
 * The paper appraisal is a **checklist of what the text reports**, not a quality score and not medical advice.
 * Abstract-only papers are **clearly marked**; paywalled full text is never scraped.
 * Deterministic offline engine: same input, same output.
+* Public mode keeps each visitor's data **separate and temporary**.
+
+## ☁️ Deployment
+
+PaperPilot is a Streamlit app, so it runs as a website. The live demo above is hosted on **Streamlit Community Cloud**.
+
+| Host | How |
+|---|---|
+| **Streamlit Community Cloud** (free) | New app from this repo, main file `app.py`, Python 3.12, and in *Secrets* add `PAPERPILOT_PUBLIC = "1"`. Every push to `main` redeploys |
+| **Render / Railway / Fly.io / any server** | Use the included `Dockerfile` (it already sets public mode) |
+| **Hugging Face Spaces** | Docker Space using the same `Dockerfile` |
+| **Your own computer** | `Run_PaperPilot.bat` on Windows, or the quick start above |
+
+Never put an API key in the hosting secrets of a public app, or every visitor would spend your quota. Full steps and a post-deployment checklist are in [DEPLOY.md](DEPLOY.md).
 
 ## 🗂️ Project structure
 
@@ -134,6 +167,7 @@ PaperPilot/
 │   ├── agent.py               chat brain: intent routing, tools, grounded answers
 │   ├── discovery.py           Europe PMC + OpenAlex search, merge, PDF download
 │   ├── library.py             saved library + activity log
+│   ├── storage.py             local vs public (per-visitor, temporary) storage
 │   ├── pdf_processor.py       PDF text, sections, reference stripping
 │   ├── extraction.py          rule-based claim extraction
 │   ├── vocab.py               medical vocabulary (devices, signals, patients, outcomes)
@@ -153,14 +187,17 @@ PaperPilot/
 │   ├── sample_papers/         5 RAG-topic PDFs
 │   ├── papers/                put your own PDFs here
 │   └── vocab.example.json     extend the vocabulary
-└── .streamlit/config.toml     theme
+├── Dockerfile                 container image for hosting (public mode on)
+├── Run_PaperPilot.bat         Windows one-click launcher
+├── DEPLOY.md                  deployment steps and checklist
+└── .streamlit/config.toml     theme and upload limit
 ```
 
 ## ✅ Tests
 
 ```bash
 python scripts/test_pipeline.py   # 38 pipeline correctness checks
-python scripts/test_agent.py      # 48 agent / search / library / analytics checks
+python scripts/test_agent.py      # 54 agent / search / library / storage / analytics checks
 ```
 
 Network calls are tested with recorded responses and mocks, so the suite runs offline. CI runs both on every push.
@@ -177,14 +214,16 @@ Copy `data/vocab.example.json` to `data/vocab.json` and add your own devices, po
 * No OCR for scanned PDFs.
 * The graph library loads from a CDN on first view.
 * Search code is tested against recorded responses; if a source changes its format the app reports which one failed and keeps using the other.
+* On the free public host the app sleeps when idle, and public-mode libraries are temporary (deleted after 24 hours of inactivity).
 
 ## 🗺️ Roadmap
 
+- [x] Dockerfile for one-command deployment
+- [x] Public mode with private per-visitor storage
 - [ ] OCR support for scanned PDFs
 - [ ] Embedding-based retrieval alongside the current lexical retrieval
 - [ ] Zotero / BibTeX import and export
 - [ ] Shareable analysis reports (PDF)
-- [ ] Dockerfile for one-command deployment
 
 ## 🤝 Contributing
 
